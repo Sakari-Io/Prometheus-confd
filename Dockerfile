@@ -1,7 +1,13 @@
+FROM golang:1.16
+WORKDIR /go/src/github.com/shoenig/bcrypt-tool 
+RUN go get gophers.dev/cmds/bcrypt-tool
+
+
 FROM prom/prometheus
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY confd /etc/confd/
+COPY --from=0 /go/bin/bcrypt-tool /bin/
 USER root
 RUN wget -O /bin/confd https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 && \
       chmod +x /bin/confd && \

@@ -1,0 +1,6 @@
+[template]
+src = "web-config.yml"
+dest = "/etc/prometheus/confd-web-config.yml"
+keys = [
+  "/dashboard",
+]
