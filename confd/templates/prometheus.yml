@@ -4,9 +4,9 @@ global:
   evaluation_interval: 60s
 
 scrape_configs:
-  - job_name: 'Prometheus'
+  - job_name: "Prometheus"
     static_configs:
-    - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
     basic_auth:
       username: admin
       password: {{getenv "DASHBOARD_PASSWORD"}}
@@ -14,9 +14,11 @@ scrape_configs:
   - job_name: EC2
     relabel_configs:
       - source_labels: [__meta_ec2_tag_Name]
-        target_label: instance
+        target_label: instance_name
       - source_labels: [__meta_ec2_private_ip]
         target_label: ip
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: instance_id
     ec2_sd_configs:
       - region: us-east-1
         role_arn: {{getenv "EC2_ROLE_ARN"}}
@@ -25,7 +27,7 @@ scrape_configs:
   - job_name: Application
     relabel_configs:
       - source_labels: [__meta_ec2_tag_Name]
-        target_label: instance
+        target_label: instance_name
       - source_labels: [__meta_ec2_private_ip]
         target_label: ip
     ec2_sd_configs:
@@ -39,6 +41,5 @@ scrape_configs:
   - job_name: ECS
     file_sd_configs:
       - files:
-        - /etc/prometheus/ecs_file_sd.yml
+          - /etc/prometheus/ecs_file_sd.yml
         refresh_interval: 1m
-
