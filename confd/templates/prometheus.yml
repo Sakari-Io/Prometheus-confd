@@ -1,7 +1,7 @@
 global:
-  scrape_interval: 60s
-  scrape_timeout: 30s
-  evaluation_interval: 60s
+  scrape_interval: 300s
+  scrape_timeout: 60s
+  evaluation_interval: 300s
 
 scrape_configs:
   - job_name: "Prometheus"
@@ -43,3 +43,7 @@ scrape_configs:
       - files:
           - /etc/prometheus/ecs_file_sd.yml
         refresh_interval: 1m
+  
+  - job_name: "Cloudwatch"
+    static_configs:
+      - targets: ["localhost:5000"]
