@@ -44,6 +44,14 @@ scrape_configs:
           - /etc/prometheus/ecs_file_sd.yml
         refresh_interval: 1m
   
-  - job_name: "Cloudwatch"
-    static_configs:
-      - targets: ["localhost:5000"]
+  # - job_name: "Cloudwatch"
+  #   static_configs:
+  #     - targets: ["localhost:5000"]
+
+  # - job_name: "MongoDB"
+  #   static_configs:
+  #     - targets: ["localhost:9216"]
+
+  # - job_name: "BullQueues"
+  #   static_configs:
+  #     - targets: ["localhost:9538"]
